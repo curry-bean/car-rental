@@ -1,0 +1,735 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="./assets/images/favicon.png">
+    <meta property="og:title" content="Kip Emerging Car Systems" />
+    <meta property="og:description" content="For the latest luxury cars" />
+    <meta property="og:image" content="https://importsbykairo.com/assets/images/og.jpg" />
+    <meta property="og:url" content="https://importsbykairo.com" />
+    <meta property="twitter:image" content="https://importsbykairo.com/assets/images/og.jpg" />
+    <!-- Bootstrap CSS -->
+    <link href="./bootstrap.min.css" rel="stylesheet" />
+    <link href="./slick.css" rel="stylesheet" />
+    <link href="./slick-theme.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./style2.css" />
+    <link rel="stylesheet" href="./responsive.css" />
+    <!-- Popup CSS 
+    <style>
+        #popup {
+            display:none;
+            position:absolute;
+            margin:0 auto;
+            top: 76%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+        .popup-image{
+            max-width: 100%;
+            min-width: 350px;
+            height: auto;
+        }
+    </style>-->
+
+    <title>KIP EMERGING SYSTEMS</title>
+    <script>
+function goToParts()
+{
+    window.location = "spare-parts";
+}
+function goToProducts()
+{
+    window.location = "products";
+}
+function getSelectedCheckboxValues(name) {
+    const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+    let values = [];
+    checkboxes.forEach((checkbox) => {
+        values.push(checkbox.value);
+    });
+    return values;
+}
+
+function setSessions(x,divElement) {
+
+if (x == "main")
+{
+    //   var performance = $('input[name=performance]:checked', '#myForm').val();      
+    //   var style = $('input[name=driving_style]:checked', '#myForm').val();
+    //   var passengers = $('input[name=passengers]:checked', '#myForm').val();
+    //   var driving_areas = $('input[name=driving_areas]:checked', '#myForm').val();
+    //   var vehicle_equipment = $('input[name=vehicle_equipment]:checked', '#myForm').val();
+    var price = $('#myRange').val();
+    var performance = getSelectedCheckboxValues('performance');      
+    var style = getSelectedCheckboxValues('driving_style');
+    var passengers = getSelectedCheckboxValues('passengers');
+    var driving_areas = getSelectedCheckboxValues('driving_areas');
+    var vehicle_equipment = getSelectedCheckboxValues('vehicle_equipment');
+
+   //   alert(style);
+
+      // default values
+      if(performance == null)
+      {
+        performance = "0";
+      }
+      if(style == null)
+      {
+        style = "0";
+      }
+      if(passengers == null)
+      {
+        passengers = "0";
+      }
+      if(driving_areas == null)
+      {
+        driving_areas = "0";
+      }
+      if(vehicle_equipment == null)
+      {
+        vehicle_equipment = "0";
+      }
+    //   if(price == null)
+    //   {
+    //       price = "40000000";
+    //   }
+
+      $.ajax({
+        url: 'api/setSessionMainSearch.php',
+        data: {
+          "referer": "main_search",
+          "price": price,
+          "style": style,
+          "performance": performance,
+          "passengers": passengers,
+          "driving_areas": driving_areas,
+          "vehicle_equipment": vehicle_equipment
+        },
+        type: 'post',
+        success: function(result) {
+         //  alert(result);
+          window.location = "products";
+
+        }
+      });
+}
+else if (x == "brand")
+{
+    var make = divElement.id;
+    
+    $.ajax({
+        url: 'api/setSessionMainSearch.php',
+        data: {
+          "referer": "main_brand",
+          "make": make
+        },
+        type: 'post',
+        success: function(result) {
+         //  alert(result);
+          window.location = "products";
+
+        }
+      });
+    
+}
+    }
+    </script>
+
+</head>
+
+<body>
+
+    <!--<div id="popup">
+        <button id="close" class="btn btn-sm float-right">X</button>
+        <img class="popup-image" src="./assets/images/scp_banner.jpg" alt="popup">
+    </div>-->
+    <div class="wrapper">
+
+        <header id="header">
+      <div class="top-bar py-2">
+        <div class="container-fluid px-xl-5 px-3">
+          <div class="row justify-content-between align-items-center">
+            <div class="col-auto">
+              <div class="media d-inline-flex align-items-center mr-xl-5 mr-3">
+                <img class="mr-2" src="https://importsbykairo.com/assets/images/email-white.svg" alt="email">
+                <div class="media-body">
+                  <p class="mb-0"><a href="/cdn-cgi/l/email-protection#01686f676e41686c716e73757263786a6068736e2f626e6c"><span class="__cf_email__" data-cfemail="d3babdb5bc93babea3bca1a7a0b1aab8b2baa1bcfdb0bcbe">[email&#160;protected]</span></a></p>
+                </div>
+              </div>
+              <div class="media d-inline-flex align-items-center">
+                <img class="mr-2" src="https://importsbykairo.com/assets/images/phone-white.svg" alt="phone">
+                <div class="media-body">
+                  <p class="mb-0"><a href="tel:+254743550554">+254 743 550554</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-auto text-right">
+              <div class="social-icons">
+                <a href="https://www.facebook.com/kairoscustomimports" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/facebook-white.svg" alt="facebook" />
+                </a>
+                <a href="https://www.instagram.com/importsbykairo/?hl=en" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/instagram-white.svg" alt="instagram" />
+                </a>
+                <a href="https://twitter.com/importsbykairo?lang=en" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/twitter-white.svg" alt="twitter" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid px-xl-5 px-3">
+        <div class="row">
+          <div class="col">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white">
+              <a class="navbar-brand site-brand" href="./">
+                <img src="LOGO.png" alt="Logo" />
+              </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <p class="navbar-text visible-xs-inline-block">Menu</p>
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="imports.html">Ready for Import</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="./local-cars.html">Cars in Kenya</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="./spare-parts.html">Spare Parts</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="request.html">Make a request</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+        <div class="body-wrapper">
+            <div id="main-banner">
+                <div class="banner-car-image">
+                    <img src="https://importsbykairo.com/assets/images/home_car_audi.png" alt="banner-image" />
+                </div>
+                <div class=" banner-filter-box mx-xl-5 mx-3">
+                    <div class="banner-filter">
+                        <h3>Find your dream car</h3>
+                        <form class="py-lg-4" id="myForm">
+                            <div class="form-group row my-lg-4 my-3">
+                                <label for="inputEmail3" class="col-sm-3 col-form-label">Maximum budget (Ksh)?</label>
+                                <div class="col-sm-9">
+                                    <input type="range" min="100000" max="100000000" value="40000000" class="slider" id="myRange">
+                                    <h6 id="range-price" class="text-right mb-0"></h6>
+                                </div>
+                            </div>
+                            <div class="form-group row my-lg-4 my-3 align-items-center">
+                                <label for="inputEmail3" class="col-sm-3 col-form-label">Driving Style</label>
+                                <div class="col-sm-9">
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="beginner" name="driving_style" value="1" class="custom-control-input">
+                                        <label class="custom-control-label" for="beginner">Beginner</label>
+                                    </div>
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="style_average" name="driving_style" value="2" class="custom-control-input">
+                                        <label class="custom-control-label" for="style_average">Average</label>
+                                    </div>
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="aggressive" name="driving_style" value="3" class="custom-control-input">
+                                        <label class="custom-control-label" for="aggressive">Aggressive</label>
+                                    </div>
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="relaxed" name="driving_style" value="4" class="custom-control-input">
+                                        <label class="custom-control-label" for="relaxed">Relaxed</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row my-lg-4 my-3 align-items-center">
+                                <label for="inputEmail3" class="col-sm-3 col-form-label">Number of seats</label>
+                                <div class="col-sm-9">
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="seat-2" name="passengers" value="2" class="custom-control-input">
+                                        <label class="custom-control-label" for="seat-2">2 seater</label>
+                                    </div>
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="seat-4" value="4" name="passengers" class="custom-control-input">
+                                        <label class="custom-control-label" for="seat-4">4 seater</label>
+                                    </div>
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="seat-5" name="passengers" value="5" class="custom-control-input">
+                                        <label class="custom-control-label" for="seat-5">5 seater</label>
+                                    </div>
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="seat-7" name="passengers" value="7" class="custom-control-input">
+                                        <label class="custom-control-label" for="seat-7">7 seater</label>
+                                    </div>
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="seat-9" name="passengers" value="9" class="custom-control-input">
+                                        <label class="custom-control-label" for="seat-9">9 seater</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row my-lg-4 my-3 align-items-center">
+                                <label for="inputEmail3" class="col-sm-3 col-form-label">Performance</label>
+                                <div class="col-sm-9">
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="economical" name="performance" value="1" class="custom-control-input">
+                                        <label class="custom-control-label" for="economical">Economical</label>
+                                    </div>
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="fast" name="performance" value="2" class="custom-control-input">
+                                        <label class="custom-control-label" for="fast">Fast</label>
+                                    </div>
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="performance_average" name="performance" value="3" class="custom-control-input">
+                                        <label class="custom-control-label" for="performance_average">Average</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row my-lg-4 my-3 align-items-center">
+                                <label for="inputEmail3" class="col-sm-3 col-form-label">Daily driving areas</label>
+                                <div class="col-sm-9">
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="upmarket" name="driving_areas" value="1" class="custom-control-input">
+                                        <label class="custom-control-label" for="upmarket">Upmarket</label>
+                                    </div>
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="suburban" name="driving_areas" value="2" class="custom-control-input">
+                                        <label class="custom-control-label" for="suburban">Suburban</label>
+                                    </div>
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="off-road" name="driving_areas" value="3" class="custom-control-input">
+                                        <label class="custom-control-label" for="off-road">Off-road</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row my-lg-4 my-3 align-items-center">
+                                <label for="inputEmail3" class="col-sm-3 col-form-label">Vehicle equipment levels</label>
+                                <div class="col-sm-9">
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="luxury" name="vehicle_equipment" value="1" class="custom-control-input">
+                                        <label class="custom-control-label" for="luxury">Luxury</label>
+                                    </div>
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="equipment_average" name="vehicle_equipment" value="2" class="custom-control-input">
+                                        <label class="custom-control-label" for="equipment_average">Average</label>
+                                    </div>
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="spartan" name="vehicle_equipment" value="3" class="custom-control-input">
+                                        <label class="custom-control-label" for="spartan">Spartan</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                         <div class="text-center">
+                         <button class="button rounded-pill border border-dark" style="width: 170px; height:45px; background:white; text-align: center;" id="showCars" 
+                         onclick="setSessions('main',this)">Show cars</button>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+            <div class="our-process">
+                <div class="container">
+                    <div class="row mb-xl-5 mb-4 text-center">
+                        <div class="col">
+                            <div class="section-title">
+                                <h2>Our <span>Process</span></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <div class="our-process-item">
+                                <div class="process-item-count d-inline-flex">
+                                    <span>1</span>
+                                </div>
+                                <div class="process-title py-3">
+                                    <h4>Select your car</h4>
+                                </div>
+                                <div class="process-content">
+                                    <p>Browse through our collection in kenya or a choice of ready for export units carefully handpicked by our international team in Singapore,Japan & the UK and choose your preferred unit.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="our-process-item">
+                                <div class="process-item-count d-inline-flex">
+                                    <span>2</span>
+                                </div>
+                                <div class="process-title py-3">
+                                    <h4>Make an Enquiry</h4>
+                                </div>
+                                <div class="process-content">
+                                    <p>Get in touch with our sales team for an invoice or visit us at our Diamond plaza II offices in Nairobi for further information.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="our-process-item">
+                                <div class="process-item-count d-inline-flex">
+                                    <span>3</span>
+                                </div>
+                                <div class="process-title py-3">
+                                    <h4>Payment</h4>
+                                </div>
+                                <div class="process-content">
+                                    <p>Pay & drive off with your vehicle for kenyan available cars. Place an order,pay the CIF amount via bank transfer and sit back us we ship your vehicle to your preferred port of choice (for importation clients). 
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="brands section-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="section-title">
+                                <h2>Browse by <span>Brands</span></h2>
+                            </div>
+                            <div class="brand-items">
+                                <div class="brands-carousel" id="brands-carousel">
+                                    
+                                <div id="2" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Audi</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/EDAA4CCA-24BA-434E-AA1A-016E13F5C200.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="6" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Bentley</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/5D770AE3-DF3C-46A2-AE41-973D7FE9FB25.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="9" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Volkswagen</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/D49F5E11-28CF-4C3C-8D1B-29F045981664.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="13" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>BMW</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/56B75023-C02E-4ECC-AEDD-FFE62EA52370.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="14" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Jaguar</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/Jaguar-logo-2012-1920x1080.png" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="16" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Mercedes Benz</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/Mercedes-Benz-logo-2011-1920x1080.png" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="17" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Subaru</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/Subaru-symbol-black-1920x1080.png" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="18" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Volvo</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/Volvo-logo-2014-1920x1080.png" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="19" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Porsche</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/porsche-logo-2100x1100.png" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="21" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Ferrari</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/7A415C78-8385-42A8-8842-7ADB592575AE.png" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="22" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Jeep</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/AD08130B-B010-43B8-BF1E-933678861D69.png" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="23" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Hyundai</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/D874E443-42C4-40C9-91FA-5DF841B60406.png" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="25" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Toyota</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/16D55538-8C03-479B-93CB-24B460A3F21B.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="27" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Mitsubishi</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/E409893B-E8D8-4B0C-B4EE-8865DDC0CFF9.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="33" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Nissan</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/A7306B56-2AAB-4D21-8E34-6C3C712B2E9F.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="36" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Mini</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/B879FB8B-ED55-48AE-802A-21D211D02F1E.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="37" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Landrover</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/5DAA9318-B546-41D0-AA43-ED1BCE377197.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="38" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Suzuki</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/11972008-BE65-4C36-AE8F-836967248B02.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="39" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Lamborghini</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/E71155D2-4381-416A-AA7E-EDFB97B087C7.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="40" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Chrysler</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/6033D2F7-5461-49B5-93DB-949CA72A57FE.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="41" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Mazda</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/9863B146-B8BD-4B65-A2AC-C1C5C86DB862.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="42" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Ford</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/9021C208-1E37-4B9E-9360-46E5050AD60A.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="46" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Lexus</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/951C6361-55CB-44DA-B181-E8BC15697A4D.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="49" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>KIA</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/12FA4CE0-AE71-4917-B83A-D9827DFDEF55.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="50" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Mini</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/1A4ABAAA-560F-4383-A01B-BE0780BE063C.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="52" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>Isuzu</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/3BC36BF3-8A26-46F0-8A7E-89406E93C1BC.jpeg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div><div id="54" onclick="setSessions('brand',this);">
+              <div class="brand-item">
+                <div class="brand-item-box">
+                  <h6>MASERATI</h6>
+                  <img src="https://importsbykairo.com/assets/images/makes/HD-wallpaper-maserati-logo.jpg" width="230" height="129" alt="brand-item" />
+                </div>
+              </div>
+            </div> 
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spare-parts section-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <a href="./spare-parts">
+                            <div class="section-title">
+                                <h2>Spare <span>Parts</span></h2>
+                            </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-4 mb-md-0 text-center" onclick="goToParts();">
+                            <div class="spare-parts-item">
+                                <div class="spare-parts-title">
+                                    <h4>Service <span>Parts</span></h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center" onclick="goToParts();">
+                            <div class="spare-parts-item">
+                                <div class="spare-parts-title">
+                                    <h4>Custom <span>Parts</span></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer id="footer">
+      <div class="container">
+        <div class="row text-center">
+          <div class="col">
+            <div class="footer-logo">
+              <a href="./"><img src="https://importsbykairo.com/assets/images/logo-white.png" alt="Logo" /></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-menu my-4">
+          <ul class="nav justify-content-center">
+            <li class="nav-item">
+              <a class="nav-link active" href="imports.html">Ready for Import</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="local-cars.html">Cars in Kenya</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="spare-parts.html">Spare Parts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="request.html">Make a request</a>
+            </li>
+          </ul>
+        </div>
+        <div class="follow-us text-center">
+          <h3>Follow Us</h3>
+          <div class="row justify-content-between align-items-center my-4">
+            <div class="col">
+              <div class="media d-inline-flex align-items-center mr-xl-5 mr-3">
+                <img class="mr-2" src="./assets/images/email-white.svg" alt="email">
+                <div class="media-body">
+                  <p class="mb-0"><a href="/cdn-cgi/l/email-protection#f0999e969fb0999d809f82848392899b9199829fde939f9d"><span class="__cf_email__" data-cfemail="076e696168476e6a7768757374657e6c666e75682964686a">[email&#160;protected]</span></a></p>
+                </div>
+              </div>
+              <div class="media d-inline-flex align-items-center">
+                <img class="mr-2" src="https://importsbykairo.com/assets/images/phone-white.svg" alt="phone">
+                <div class="media-body">
+                  <p class="mb-0"><a href="tel:+254743550554">+254 743 550554</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="social-icons">
+                <a href="https://www.facebook.com/kairoscustomimports" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/facebook-white.svg" alt="facebook" />
+                </a>
+                <a href="https://www.instagram.com/importsbykairo/?hl=en" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/instagram-white.svg" alt="instagram" />
+                </a>
+                <a href="https://twitter.com/importsbykairo?lang=en" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/twitter-white.svg" alt="twitter" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="row text-center">
+            <div class="col">
+              <p class="copy-rights">
+                © 2022 Kip Emerging Car Systems. All Rights Reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-ETV7FME3S2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ETV7FME3S2');
+</script>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./assets/js/jquery.min.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets/slick/slick.js"></script>
+    <script src="./assets/js/index.js"></script>
+
+//Popup JS Script
+   <!-- <script>
+        $(document).ready(function () {
+            $("#popup").hide().fadeIn(1000);
+            $("#close").on("click", function (e) {
+                e.preventDefault();
+                $("#popup").fadeOut(1000);
+            });
+        });
+    </script>-->
+
+</body>
+</body>
+</html>

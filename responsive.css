@@ -1,0 +1,134 @@
+@media (max-width: 1680px) {
+  .banner-car-image {
+    width: 65%;
+  }
+}
+@media (max-width: 1600px) {
+  #main-banner {
+    min-height: 100vh;
+  }
+}
+
+@media (max-width: 1440px) {
+  .banner-car-image {
+    width: 60%;
+  }
+}
+
+@media (max-width: 1400px) {
+  #main-banner {
+    min-height: 70vh;
+  }
+  .banner-car-image {
+    width: 60%;
+  }
+}
+
+@media (max-width: 1366px) {
+  #main-banner {
+    min-height: 100vh;
+  }
+  .banner-car-image {
+    width: 60%;
+  }
+}
+
+@media (max-width: 1100px) {
+  #main-banner {
+    min-height: 50vh;
+  }
+  .banner-car-image {
+    width: 60%;
+  }
+  .btn.btn-primary.action-btn {
+    padding: 10px 45px;
+    min-width: 100px;
+  }
+}
+
+@media (max-width: 900px) {
+  #main-banner {
+    min-height: 60vh;
+    justify-content: center;
+  }
+  .banner-car-image {
+    display: none;
+  }
+  .section-wrapper {
+    margin: 50px 0px;
+  }
+  .our-process {
+    padding: 60px 0px;
+  }
+  .our-process-item {
+    padding: 0%;
+  }
+  .btn.btn-primary.action-btn {
+    padding: 10px 24px;
+    min-width: 90px;
+  }
+}
+
+@media (max-width: 767px) {
+  #header .top-bar {
+    display: none;
+  }
+  #main-banner {
+    min-height: 80vh;
+  }
+  .banner-filter h3 {
+    font-size: 24px;
+  }
+  .section-title h2 {
+    font-size: 24px;
+  }
+  .brand-items .slick-prev,
+  .brand-items .slick-next {
+    top: -10%;
+  }
+  .filter-categories .nav-link {
+    margin-right: 12px;
+    font-size: 16px;
+  }
+  .section-wrapper {
+    margin: 35px 0px;
+  }
+  .our-process-item {
+    padding: 3% 0px;
+  }
+  .copy-rights {
+    font-size: 12px;
+  }
+  .search-box {
+    padding: 20px 15px;
+    top: auto;
+    margin-top: 35px;
+  }
+  .inner-banner h1 {
+    font-size: 32px;
+    line-height: 52px;
+  }
+  .inner-banner h3 {
+    font-size: 18px;
+  }
+  .search-parts {
+    padding: 20px 0px;
+  }
+
+  .product-item-details h3 {
+    font-size: 20px;
+  }
+
+  .product-item-details h5 {
+    font-size: 18px;
+  }
+  .specification-btn {
+    font-size: 18px;
+  }
+  .blog-article-btn {
+    padding: 24px 0px;
+  }
+  .blog-article-btn a {
+    font-size: 20px;
+  }
+}

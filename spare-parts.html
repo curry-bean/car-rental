@@ -1,0 +1,351 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta property="og:title" content="Kip Emerging Car Systems" />
+  <meta property="og:description" content="For the latest luxurious cars" />
+  <meta property="og:image" content="https://importsbykairo.com/assets/images/og.jpg" />
+  <meta property="og:url" content="https://importsbykairo.com" />
+  <meta property="twitter:image" content="https://importsbykairo.com/assets/images/og.jpg" />
+  <link rel="icon" href="./assets/images/favicon.png">
+  <!-- Bootstrap CSS -->
+  <link href="./bootstrap.min.css" rel="stylesheet" />
+  <link href="./slick.css" rel="stylesheet" />
+  <link href="./slick-theme.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./style2.css" />
+  <link rel="stylesheet" href="./responsive.css" />
+  <title>Kip Emerging Car Systems</title>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script>
+    function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function btnSearch(buttonElem) {
+
+      // alert("Search");
+
+      //var make_id = buttonElem.id;
+      var make_id = $('#make').val();
+      //alert(make_id);
+      $.ajax({
+        url: 'api/getFilteredParts.php',
+        data: {
+          "makeId": make_id
+        },
+        type: 'post',
+        success: function(result) {
+          // alert(result);
+          if (result == "0") {
+            document.getElementById("divNoResult").style.display = "block";
+            document.getElementById("divResultsData").style.display = "none";
+          } else {
+            var arr = JSON.parse(result);
+            var len = arr.length;
+            var srchRslt = "";
+            for (var i = 0; i < len; i++) {
+              //  var obj = arr[i]['prt_name'];
+              srchRslt += "<div class=\"col-lg-4 col-md-6\">  <div class=\"products\"> <div class=\"card product-item m-2\">  <img class=\"card-img-top\" src=\"./assets/images/parts/" + arr[i]['prt_image'] + "\" alt=\"Product\">   <div class=\"card-body\">  <h3 class=\"card-title\">" + arr[i]['prt_name'] + "</h3> <h5 class=\"card-title\">Ksh " + numberWithCommas(arr[i]['prt_cost']) + "</h5> </div> </div> </div> </div>";
+            }
+
+            document.getElementById("divNoResult").style.display = "none";
+            document.getElementById("divResultsData").style.display = "block";
+            document.getElementById("divSearchResultsData").style.display = "block";
+            document.getElementById("divSearchResultsData").style.display = "block";
+            // $('#name').val(obj.mk_name);
+            // $('#description').val(obj.mk_description);
+            // $('#giftID').val(obj.mk_id);
+            // $('#giftImage').attr("src","https://importsbykairo.com/assets/images/makes/" + obj.mk_image);
+          }
+
+
+        }
+      });
+    }
+  </script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+
+    <header id="header">
+      <div class="top-bar py-2">
+        <div class="container-fluid px-xl-5 px-3">
+          <div class="row justify-content-between align-items-center">
+            <div class="col-auto">
+              <div class="media d-inline-flex align-items-center mr-xl-5 mr-3">
+                <img class="mr-2" src="https://importsbykairo.com/assets/images/email-white.svg" alt="email">
+                <div class="media-body">
+                  <p class="mb-0"><a href="/cdn-cgi/l/email-protection#6e070008012e07031e011c1a1d0c17050f071c01400d0103"><span class="__cf_email__" data-cfemail="ed84838b82ad84809d829f999e8f94868c849f82c38e8280">[email&#160;protected]</span></a></p>
+                </div>
+              </div>
+              <div class="media d-inline-flex align-items-center">
+                <img class="mr-2" src="https://importsbykairo.com/assets/images/phone-white.svg" alt="phone">
+                <div class="media-body">
+                  <p class="mb-0"><a href="tel:+254743550554">+254 743 550554</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-auto text-right">
+              <div class="social-icons">
+                <a href="https://www.facebook.com/kairoscustomimports" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/facebook-white.svg" alt="facebook" />
+                </a>
+                <a href="https://www.instagram.com/importsbykairo/?hl=en" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/instagram-white.svg" alt="instagram" />
+                </a>
+                <a href="https://twitter.com/importsbykairo?lang=en" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/twitter-white.svg" alt="twitter" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid px-xl-5 px-3">
+        <div class="row">
+          <div class="col">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white">
+              <a class="navbar-brand site-brand" href="index.html">
+                <img src="LOGO.png" alt="Logo" />
+              </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <p class="navbar-text visible-xs-inline-block">Menu</p>
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="imports.html">Ready for Import</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="local-cars.html">Cars in Kenya</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="spare-parts.html">Spare Parts</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="request.html">Make a request</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="body-wrapper">
+      <div class="inner-banner">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h1 class="mb-1">Spare Parts</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="brands section-wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="section-title">
+                <h2>Select your <span>car brand</span></h2>
+              </div>
+              <div class="brand-items">
+                <div class="row">
+                                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="row search-parts section-wrapper">
+            <div class="col">
+              <div class="search-form">
+                <form>
+                  <div class="form-row">
+                    <div class="form-group col-lg-3 col-md-6">
+                      <label for="make">Make</label>
+                      <select class="form-control form-control-lg" id="make">
+                        <option>Choose</option><option value="2">Audi</option><option value="6">Bentley</option><option value="9">Volkswagen</option><option value="13">BMW</option><option value="14">Jaguar</option><option value="16">Mercedes Benz</option><option value="17">Subaru</option><option value="18">Volvo</option><option value="19">Porsche</option><option value="21">Ferrari</option><option value="22">Jeep</option><option value="23">Hyundai</option><option value="25">Toyota</option><option value="27">Mitsubishi</option><option value="33">Nissan</option><option value="36">Mini</option><option value="37">Landrover</option><option value="38">Suzuki</option><option value="39">Lamborghini</option><option value="40">Chrysler</option><option value="41">Mazda</option><option value="42">Ford</option><option value="46">Lexus</option><option value="49">KIA</option><option value="50">Mini</option><option value="52">Isuzu</option><option value="54">MASERATI</option>                      </select>
+                    </div>
+                    <div class="form-group col-lg-3 col-md-6">
+                      <label for="model">Chassis number</label>
+                      <input type="text" class="form-control" id="chassis-number" placeholder="Chassis number">
+                    </div>
+                    <div class="form-group col-lg-6">
+                      <h6 class="car-type mb-3">Service Type</h6>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="major-service" name="service_type" class="custom-control-input">
+                        <label class="custom-control-label" for="major-service">Major service kit</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="minor-service" name="service_type" class="custom-control-input">
+                        <label class="custom-control-label" for="minor-service">Minor service kit</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="custom-part" name="service_type" class="custom-control-input">
+                        <label class="custom-control-label" for="custom-part">Order custom part</label>
+                      </div>
+                    </div>
+                    <div class="form-group col-lg-3 col-md-6">
+                      <a class="btn btn-primary action-btn" onclick="btnSearch(this)">Search</a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="spare-part-items mb-xl-5 mb-4" style="display: block;" id="divResults">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="section-title">
+                <h2>Search <span>Results</span></h2>
+              </div>
+            </div>
+            <div class="col-lg-12 col-md-12" style="display: none;" id="divNoResult">
+              No Parts Found
+            </div>
+            <div id="divResultsData" class="container">
+                          </div>
+            <div id="divSearchResultsData" class="container">
+            </div>
+
+            <!-- <div class="col-lg-4 col-md-6">
+              <div class="products">
+                <div class="card product-item m-2">
+                  <img class="card-img-top" src="./assets/images/16.png" alt="Product">
+                  <div class="card-body">
+                    <h3 class="card-title">2019 VW Passat service kit</h3>
+                    <h5 class="card-title">Ksh 30000</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="products">
+                <div class="card product-item m-2">
+                  <img class="card-img-top" src="./assets/images/16.png" alt="Product">
+                  <div class="card-body">
+                    <h3 class="card-title">2019 VW Passat service kit</h3>
+                    <h5 class="card-title">Ksh 30000</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="products">
+                <div class="card product-item m-2">
+                  <img class="card-img-top" src="./assets/images/16.png" alt="Product">
+                  <div class="card-body">
+                    <h3 class="card-title">2019 VW Passat service kit</h3>
+                    <h5 class="card-title">Ksh 30000</h5>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer id="footer">
+      <div class="container">
+        <div class="row text-center">
+          <div class="col">
+            <div class="footer-logo">
+              <a href="https://importsbykairo.com/"><img src="https://importsbykairo.com/assets/images/logo-white.png" alt="Logo" /></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-menu my-4">
+          <ul class="nav justify-content-center">
+            <li class="nav-item">
+              <a class="nav-link active" href="imports">Ready for Import</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="local-cars">Cars in Kenya</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="spare-parts">Spare Parts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="request">Make a request</a>
+            </li>
+          </ul>
+        </div>
+        <div class="follow-us text-center">
+          <h3>Follow Us</h3>
+          <div class="row justify-content-between align-items-center my-4">
+            <div class="col">
+              <div class="media d-inline-flex align-items-center mr-xl-5 mr-3">
+                <img class="mr-2" src="https://importsbykairo.com/assets/images/email-white.svg" alt="email">
+                <div class="media-body">
+                  <p class="mb-0"><a href="/cdn-cgi/l/email-protection#7910171f1639101409160b0d0a1b001218100b16571a1614"><span class="__cf_email__" data-cfemail="9af3f4fcf5daf3f7eaf5e8eee9f8e3f1fbf3e8f5b4f9f5f7">[email&#160;protected]</span></a></p>
+                </div>
+              </div>
+              <div class="media d-inline-flex align-items-center">
+                <img class="mr-2" src="https://importsbykairo.com/assets/images/phone-white.svg" alt="phone">
+                <div class="media-body">
+                  <p class="mb-0"><a href="tel:+254743550554">+254 743 550554</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="social-icons">
+                <a href="https://www.facebook.com/kairoscustomimports" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/facebook-white.svg" alt="facebook" />
+                </a>
+                <a href="https://www.instagram.com/importsbykairo/?hl=en" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/instagram-white.svg" alt="instagram" />
+                </a>
+                <a href="https://twitter.com/importsbykairo?lang=en" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/twitter-white.svg" alt="twitter" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="row text-center">
+            <div class="col">
+              <p class="copy-rights">
+                © 2022 Kip Emerging Car Systems. All Rights Reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-ETV7FME3S2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ETV7FME3S2');
+</script>
+  </div>
+
+  <!-- Scripts -->
+      <!-- Scripts -->
+      <script src="./assets/js/jquery.min.js"></script>
+      <script src="./assets/js/popper.min.js"></script>
+      <script src="./assets/js/bootstrap.min.js"></script>
+      <script src="./assets/slick/slick.js"></script>
+      <script src="./assets/js/index.js"></script>
+</body>
+
+</html>

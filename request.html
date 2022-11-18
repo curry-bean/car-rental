@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="./assets/images/favicon.png">
+    <meta property="og:title" content="Kip Emerging Car Systems" />
+    <meta property="og:description" content="For the latest luxury cars" />
+    <meta property="og:image" content="https://importsbykairo.com/assets/images/og.jpg" />
+    <meta property="og:url" content="https://importsbykairo.com" />
+    <meta property="twitter:image" content="https://importsbykairo.com/assets/images/og.jpg" />
+    <!-- Bootstrap CSS -->
+    <link href="./bootstrap.min.css" rel="stylesheet" />
+    <link href="./slick.css" rel="stylesheet" />
+    <link href="./slick-theme.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./style2.css" />
+    <link rel="stylesheet" href="./responsive.css" />
+    <title>Kip Emerging Car Systems</title>
+    
+    <script>
+    // prevent re-submission on reload page
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+
+    <script>
+        function goToHome()
+        {
+            window.location = "products";
+        }
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+        $(function () {
+
+    window.verifyRecaptchaCallback = function (response) {
+       // alert(response);
+        $('input[data-recaptcha]').val(response).trigger('change');
+    }
+    
+    window.expiredRecaptchaCallback = function () {
+        $('input[data-recaptcha]').val("").trigger('change')
+    }
+
+    $('#contact-form').validator();
+
+    $('#contact-form').on('submit', function (e) {
+        if (!e.isDefaultPrevented()) {
+            alert("form");
+            // var url = "contact.php";
+
+            // $.ajax({
+            //     type: "POST",
+            //     url: url,
+            //     data: $(this).serialize(),
+            //     success: function (data) {
+            //         var messageAlert = 'alert-' + data.type;
+            //         var messageText = data.message;
+
+            //         var alertBox = '<div class="alert ' + messageAlert + ' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + messageText + '</div>';
+            //         if (messageAlert && messageText) {
+            //             $('#contact-form').find('.messages').html(alertBox);
+            //             $('#contact-form')[0].reset();
+            //             grecaptcha.reset();
+            //         }
+            //     }
+            // });
+            // return false;
+        }
+    })
+    
+        });
+    </script>
+
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <header id="header">
+      <div class="top-bar py-2">
+        <div class="container-fluid px-xl-5 px-3">
+          <div class="row justify-content-between align-items-center">
+            <div class="col-auto">
+              <div class="media d-inline-flex align-items-center mr-xl-5 mr-3">
+                <img class="mr-2" src="https://importsbykairo.com/assets/images/email-white.svg" alt="email">
+                <div class="media-body">
+                  <p class="mb-0"><a href="/cdn-cgi/l/email-protection#036a6d656c436a6e736c717770617a68626a716c2d606c6e"><span class="__cf_email__" data-cfemail="51383f373e11383c213e23252233283a3038233e7f323e3c">[email&#160;protected]</span></a></p>
+                </div>
+              </div>
+              <div class="media d-inline-flex align-items-center">
+                <img class="mr-2" src="https://importsbykairo.com/assets/images/phone-white.svg" alt="phone">
+                <div class="media-body">
+                  <p class="mb-0"><a href="tel:+254743550554">+254 743 550554</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-auto text-right">
+              <div class="social-icons">
+                <a href="https://www.facebook.com/kairoscustomimports" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/facebook-white.svg" alt="facebook" />
+                </a>
+                <a href="https://www.instagram.com/importsbykairo/?hl=en" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/instagram-white.svg" alt="instagram" />
+                </a>
+                <a href="https://twitter.com/importsbykairo?lang=en" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/twitter-white.svg" alt="twitter" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid px-xl-5 px-3">
+        <div class="row">
+          <div class="col">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white">
+              <a class="navbar-brand site-brand" href="index.html">
+                <img src="LOGO.png" alt="Logo" />
+              </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <p class="navbar-text visible-xs-inline-block">Menu</p>
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="imports.html">Ready for Import</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="local-cars.html">Cars in Kenya</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="request.html">Make a request</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+        <div class="body-wrapper">
+            <div id="main-banner">
+                <div class="banner-car-image">
+                    <img src="https://importsbykairo.com/assets/images/home_car.png" alt="banner-image" />
+                </div>
+                <div class=" banner-filter-box mx-xl-5 mx-3">
+                    <div class="banner-filter text-center">
+                        <h1>Make a request</h1>
+                        <form id="contact-form" action="https://getform.io/f/948e1e3c-7e6f-4231-9ded-0eb77d46061b" method="POST">
+                            <div class="messages"></div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="beginner" name="driving_style" value="Cars" class="custom-control-input">
+                                        <label class="custom-control-label" for="beginner">Cars</label>
+                                    </div>
+                                    <div class="custom-control checkbox-checkbox custom-control-inline">
+                                        <input type="checkbox" id="style_average" name="driving_style" value="Parts" class="custom-control-input">
+                                        <label class="custom-control-label" for="style_average">Motor Bike</label>
+                                    </div>
+                                </div>
+                                    
+                                </div>
+                                <div class="form-group row">
+                                    <label for="name" class="col-sm-2 col-form-label">Name</label>
+                                    <div class="col-sm-10">
+                                      <input type="text" class="form-control" id="name" name="name" placeholder="John Doe" required>
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                                    <div class="col-sm-10">
+                                      <input type="email" class="form-control" id="email" name="email" placeholder="email@example.com" required>
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+                                    <div class="col-sm-10">
+                                      <input type="number" class="form-control" id="phone" name="phone" placeholder="0711123456" required>
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="message" class="col-sm-2 col-form-label">Message</label>
+                                    <div class="col-sm-10">
+                                      <textarea id="msg" class="form-control" rows="5" name="message" placeholder="2010 BMW 520i Basic Service Kit" required></textarea>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <div class="g-recaptcha" data-sitekey="6LdEd60cAAAAAFXIrfVV5BbWtE6sjLwhnfH0MF4l" data-callback="verifyRecaptchaCallback" data-expired-callback="expiredRecaptchaCallback"></div>
+                        <input class="form-control d-none" data-recaptcha="true" required data-error="Please complete the Captcha">
+                        </div>
+                        <button class="button rounded-pill border border-dark" style="width: 170px; height:45px; background:white; text-align: center;" type="submit">Submit request</button>
+                                </form>
+                        
+                                               
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer id="footer">
+      <div class="container">
+        <div class="row text-center">
+          <div class="col">
+            <div class="footer-logo">
+              <a href="index.html"><img src="LOGO.png" alt="Logo" /></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-menu my-4">
+          <ul class="nav justify-content-center">
+            <li class="nav-item">
+              <a class="nav-link active" href="imports.html">Ready for Import</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="local-cars.html">Cars in Kenya</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="request.html">Make a request</a>
+            </li>
+          </ul>
+        </div>
+        <div class="follow-us text-center">
+          <h3>Follow Us</h3>
+          <div class="row justify-content-between align-items-center my-4">
+            <div class="col">
+              <div class="media d-inline-flex align-items-center mr-xl-5 mr-3">
+                <img class="mr-2" src="https://importsbykairo.com/assets/images/email-white.svg" alt="email">
+                <div class="media-body">
+                  <p class="mb-0"><a href="/cdn-cgi/l/email-protection#ff96919990bf96928f908d8b8c9d86949e968d90d19c9092"><span class="__cf_email__" data-cfemail="751c1b131a351c18051a070106170c1e141c071a5b161a18">[email&#160;protected]</span></a></p>
+                </div>
+              </div>
+              <div class="media d-inline-flex align-items-center">
+                <img class="mr-2" src="https://importsbykairo.com/assets/images/phone-white.svg" alt="phone">
+                <div class="media-body">
+                  <p class="mb-0"><a href="tel:+254743550554">+254 743 550554</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="social-icons">
+                <a href="https://www.facebook.com/kairoscustomimports" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/facebook-white.svg" alt="facebook" />
+                </a>
+                <a href="https://www.instagram.com/importsbykairo/?hl=en" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/instagram-white.svg" alt="instagram" />
+                </a>
+                <a href="https://twitter.com/importsbykairo?lang=en" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/twitter-white.svg" alt="twitter" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="row text-center">
+            <div class="col">
+              <p class="copy-rights">
+                © 2022 Kip Emerging Car Systems. All Rights Reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-ETV7FME3S2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ETV7FME3S2');
+</script>
+    </div>
+
+    <!-- Scripts -->
+        <!-- Scripts -->
+        <script src="./assets/js/jquery.min.js"></script>
+        <script src="./assets/js/popper.min.js"></script>
+        <script src="./assets/js/bootstrap.min.js"></script>
+        <script src="./assets/slick/slick.js"></script>
+        <script src="./assets/js/index.js"></script>
+
+</body>
+
+</html>

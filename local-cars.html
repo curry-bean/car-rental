@@ -1,0 +1,545 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta property="og:title" content="Kip Emerging Car Systems" />
+  <meta property="og:description" content="For the latest luxurious cars" />
+  <meta property="og:image" content="https://importsbykairo.com/assets/images/og.jpg" />
+  <meta property="og:url" content="https://importsbykairo.com" />
+  <meta property="twitter:image" content="https://importsbykairo.com/assets/images/og.jpg" />
+  <link rel="icon" href="./assets/images/favicon.png">
+  <!-- Bootstrap CSS -->
+  <link href="./bootstrap.min.css" rel="stylesheet" />
+  <link href="./slick.css" rel="stylesheet" />
+  <link href="./slick-theme.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./style2.css" />
+  <link rel="stylesheet" href="./responsive.css" />
+  <title>Kip Emerging Car Systems</title>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script>
+    function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function SetCarID(cv) {
+      var carId = cv.id;
+      // '<%Session["car_id"] = "' + carId + '"; %>';
+      //  alert('<%=Session["car_id"] %>');
+     // window.location = "product-details?q=" + btoa(carId);
+      window.open("product-details?q=" + btoa(carId),'_blank');
+      // $.ajax({
+      //   url: 'api/setSession.php',
+      //   data: {
+      //     "carId": carId
+      //   },
+      //   type: 'post',
+      //   success: function(result) {
+      //     // alert(result);
+      //     window.location = "product-details";
+
+      //   }
+      // });
+    }
+
+    function btnSearch(buttonElem) {
+
+      // alert("Search");
+
+      //var make_id = buttonElem.id;
+      var make_id = $('#make').val();
+      var model = $('#model').val();
+    //  var type = $('input[name=car_type]:checked', '#filtersForm').val();
+      var price = $('#myRange').val();
+      var year = $('#year').val();
+
+      // alert("model " + model);
+      // alert("type " + type);
+      // alert("price " + price);
+      // alert("year " + year);
+
+      // if (type == null) {
+      //   type = "0";
+      // }
+
+      if (year == null) {
+        year = "0";
+      }
+
+      $.ajax({
+        url: 'api/getFilteredCars.php',
+        data: {
+          "makeId": make_id,
+          "price": price,
+          "type": 1,
+          "year": year,
+          "model": model
+        },
+        type: 'post',
+        success: function(result) {
+          // alert(result);
+          if (result == "0") {
+            // document.getElementById("divNoResult").style.display = "compact";
+            // document.getElementById("divResultsData").style.display = "none";
+            // document.getElementById("divSearchResultsData").style.display = "none";
+            document.getElementById("divResultsData").innerHTML = "No cars found, please refine search criteria";
+          } else {
+            var arr = JSON.parse(result);
+            var len = arr.length;
+            var srchRslt = "";
+            for (var i = 0; i < len; i++) {
+              //  var obj = arr[i]['prt_name'];
+              //   srchRslt += "<div class=\"col-lg-4 col-md-6\">  <div class=\"products\"> <div class=\"card product-item m-2\">  <img class=\"card-img-top\" src=\"https://importsbykairo.com/assets/images/parts/" + arr[i]['prt_image'] + "\" alt=\"Product\">   <div class=\"card-body\">  <h3 class=\"card-title\">" + arr[i]['prt_name'] + "</h3> <h5 class=\"card-title\">Ksh " + numberWithCommas(arr[i]['prt_cost']) + "</h5> </div> </div> </div> </div>";
+              var shrt_descrptn = arr[i]['car_description'];
+              if (shrt_descrptn.length > 40) {
+                shrt_descrptn = shrt_descrptn.substring(0, 40) + "..";
+              }
+              var car_price_cif = arr[i]['car_price_cif'];
+              var car_price = "";
+              if (car_price_cif == 0) {
+                car_price = "Ksh " + numberWithCommas(arr[i]['car_price_local']);
+              } else {
+                car_price = "USD " + numberWithCommas(car_price_cif);
+              }
+
+              srchRslt += "<div class=\"col-lg-4 col-md-6 mb-4\" id=\"" + arr[i]['car_id'] + "\" onclick=\"SetCarID(this)\">    <div class=\"card product-item\">      <img class=\"card-img-top\" src=\"https://importsbykairo.com/assets/images/cars/" + arr[i]["car_image"] + "\" alt=\"Product\">      <div class=\"card-body\">        <h3 class=\"card-title\">" + arr[i]['car_name'] + "</h3>        <p class=\"card-text my-3\">" + shrt_descrptn + "</p>        <h5 class=\"card-title\">" + car_price + "</h5>      </div>    </div>  </div>";
+            }
+
+            // document.getElementById("divNoResult").style.display = "none";
+            // document.getElementById("divResultsData").style.display = "none";
+            // document.getElementById("divSearchResultsData").style.display = "compact";
+            document.getElementById("divResultsData").innerHTML = srchRslt;
+            // $('#name').val(obj.mk_name);
+            // $('#description').val(obj.mk_description);
+            // $('#giftID').val(obj.mk_id);
+            // $('#giftImage').attr("src","https://importsbykairo.com/assets/images/makes/" + obj.mk_image);
+          }
+
+
+        }
+      });
+
+    }
+  </script>
+
+  <script type="text/javascript">
+    $(document).ready(function(e) {
+      $('#make').on('change', function() {
+
+        var make_id = document.getElementById("make").value;
+
+        //  alert(make_id);
+        
+        var result = document.getElementById("model_json").innerHTML;
+        
+       // alert(result);
+       
+       $('#model')
+              .find('option')
+              .remove()
+              .end();
+
+              $('#model')
+                .append('<option value="0">Choose</option>')
+                .val(0);
+        
+        if (result != "") {
+              var obj = JSON.parse(result);
+              var len = obj.length;              
+
+              for (var i = 0; i < len; i++) {
+                  if (obj[i]['mdl_make'] == make_id)
+                  {
+                    $('#model')
+                      .append('<option value="' + obj[i]['mdl_id'] + '">' + obj[i]['mdl_name'] + '</option>')
+                      .val(obj[i]['mdl_id']);
+                  }
+              }
+            }
+
+        // $.ajax({
+        //   url: 'admin/filterModel.php',
+        //   data: {
+        //     "makeId": make_id
+        //   },
+        //   type: 'post',
+        //   success: function(result) {
+        //     //  alert(result);
+        //     $('#model')
+        //       .find('option')
+        //       .remove()
+        //       .end();
+
+        //       $('#model')
+        //         .append('<option value="0">Choose</option>')
+        //         .val(0);
+
+        //     if (result != "") {
+        //       var obj = JSON.parse(result);
+        //       var len = obj.length;              
+
+        //       for (var i = 0; i < len; i++) {
+        //         $('#model')
+        //           .append('<option value="' + obj[i]['mdl_id'] + '">' + obj[i]['mdl_name'] + '</option>')
+        //           .val(obj[i]['mdl_id']);
+        //       }
+        //     }
+
+        //   }
+        // });
+
+      });
+    });
+  </script>
+
+</head>
+
+<body>
+    <p hidden id="model_json">[{"mdl_name":"E250 ","mdl_make":"16","mdl_id":"8"},{"mdl_name":"Q5 ","mdl_make":"2","mdl_id":"11"},{"mdl_name":"528i ","mdl_make":"13","mdl_id":"12"},{"mdl_name":"TT 2.0 TFSI","mdl_make":"2","mdl_id":"13"},{"mdl_name":"A7","mdl_make":"2","mdl_id":"15"},{"mdl_name":"520i","mdl_make":"13","mdl_id":"18"},{"mdl_name":"Cayenne","mdl_make":"19","mdl_id":"19"},{"mdl_name":"Grand Cherokee","mdl_make":"22","mdl_id":"20"},{"mdl_name":"Touran","mdl_make":"9","mdl_id":"22"},{"mdl_name":"Santa FE","mdl_make":"23","mdl_id":"23"},{"mdl_name":"Boxster","mdl_make":"19","mdl_id":"24"},{"mdl_name":"SQ5","mdl_make":"2","mdl_id":"25"},{"mdl_name":"Continental GT","mdl_make":"6","mdl_id":"26"},{"mdl_name":"XF","mdl_make":"14","mdl_id":"27"},{"mdl_name":"Xc60 T6 AWD R Design.","mdl_make":"18","mdl_id":"28"},{"mdl_name":"S60 ","mdl_make":"18","mdl_id":"29"},{"mdl_name":"Corolla NZE","mdl_make":"25","mdl_id":"30"},{"mdl_name":"Evolution X","mdl_make":"27","mdl_id":"31"},{"mdl_name":"Passat CC","mdl_make":"9","mdl_id":"32"},{"mdl_name":"El Grand","mdl_make":"33","mdl_id":"35"},{"mdl_name":"523i","mdl_make":"13","mdl_id":"36"},{"mdl_name":"Golf","mdl_make":"9","mdl_id":"37"},{"mdl_name":"A6 ","mdl_make":"2","mdl_id":"38"},{"mdl_name":"Z4","mdl_make":"13","mdl_id":"39"},{"mdl_name":"A5 ","mdl_make":"2","mdl_id":"40"},{"mdl_name":"ML350","mdl_make":"16","mdl_id":"41"},{"mdl_name":"Panamera","mdl_make":"19","mdl_id":"42"},{"mdl_name":"Crown","mdl_make":"25","mdl_id":"43"},{"mdl_name":"Cooper ","mdl_make":"36","mdl_id":"44"},{"mdl_name":"X3","mdl_make":"13","mdl_id":"45"},{"mdl_name":"Harrier","mdl_make":"25","mdl_id":"46"},{"mdl_name":"Range rover vogue","mdl_make":"37","mdl_id":"47"},{"mdl_name":"Escudo","mdl_make":"38","mdl_id":"48"},{"mdl_name":"M235i","mdl_make":"13","mdl_id":"49"},{"mdl_name":"M5","mdl_make":"13","mdl_id":"50"},{"mdl_name":"Outlander","mdl_make":"27","mdl_id":"51"},{"mdl_name":"Bentayga","mdl_make":"6","mdl_id":"52"},{"mdl_name":"Urus","mdl_make":"39","mdl_id":"53"},{"mdl_name":"A4","mdl_make":"2","mdl_id":"54"},{"mdl_name":"California","mdl_make":"21","mdl_id":"55"},{"mdl_name":"Impreza","mdl_make":"17","mdl_id":"56"},{"mdl_name":"300","mdl_make":"40","mdl_id":"57"},{"mdl_name":"Cx5","mdl_make":"41","mdl_id":"58"},{"mdl_name":"V60 T4","mdl_make":"18","mdl_id":"60"},{"mdl_name":"Skyline 370GT","mdl_make":"33","mdl_id":"61"},{"mdl_name":"Q3","mdl_make":"2","mdl_id":"62"},{"mdl_name":"911 Carrera","mdl_make":"19","mdl_id":"63"},{"mdl_name":"XKR","mdl_make":"14","mdl_id":"64"},{"mdl_name":"E63 AMG","mdl_make":"16","mdl_id":"65"},{"mdl_name":"Maybach S600","mdl_make":"16","mdl_id":"66"},{"mdl_name":"Ranger","mdl_make":"42","mdl_id":"68"},{"mdl_name":"Wish","mdl_make":"25","mdl_id":"69"},{"mdl_name":"E200 Coupe","mdl_make":"16","mdl_id":"70"},{"mdl_name":"E350","mdl_make":"16","mdl_id":"71"},{"mdl_name":"S500","mdl_make":"16","mdl_id":"72"},{"mdl_name":"Touareg","mdl_make":"9","mdl_id":"73"},{"mdl_name":"Range Rover Sport","mdl_make":"37","mdl_id":"74"},{"mdl_name":"Grand Cherokee","mdl_make":"22","mdl_id":"75"},{"mdl_name":"Mustang ","mdl_make":"42","mdl_id":"76"},{"mdl_name":"Cayman","mdl_make":"19","mdl_id":"77"},{"mdl_name":"X5 M","mdl_make":"13","mdl_id":"78"},{"mdl_name":"GLE 63S AMG","mdl_make":"16","mdl_id":"79"},{"mdl_name":"Q7","mdl_make":"2","mdl_id":"80"},{"mdl_name":"axela ","mdl_make":"41","mdl_id":"81"},{"mdl_name":"M235i","mdl_make":"13","mdl_id":"82"},{"mdl_name":"Landcruiser prado","mdl_make":"25","mdl_id":"83"},{"mdl_name":"Skyline GTR","mdl_make":"33","mdl_id":"84"},{"mdl_name":"370Z ","mdl_make":"33","mdl_id":"85"},{"mdl_name":"Outback","mdl_make":"17","mdl_id":"86"},{"mdl_name":"C180 ","mdl_make":"16","mdl_id":"87"},{"mdl_name":"X5 ","mdl_make":"13","mdl_id":"88"},{"mdl_name":"Xtrail ","mdl_make":"33","mdl_id":"89"},{"mdl_name":"NX","mdl_make":"46","mdl_id":"90"},{"mdl_name":"Discovery V","mdl_make":"37","mdl_id":"91"},{"mdl_name":"328i","mdl_make":"13","mdl_id":"92"},{"mdl_name":"316i","mdl_make":"13","mdl_id":"93"},{"mdl_name":"B200","mdl_make":"16","mdl_id":"94"},{"mdl_name":"Discovery IV","mdl_make":"37","mdl_id":"95"},{"mdl_name":"Sorento","mdl_make":"49","mdl_id":"96"},{"mdl_name":"435i Gran coupe","mdl_make":"13","mdl_id":"97"},{"mdl_name":"Golf GTI","mdl_make":"9","mdl_id":"98"},{"mdl_name":"Dmax","mdl_make":"52","mdl_id":"100"},{"mdl_name":"Landcruiser 300","mdl_make":"25","mdl_id":"101"},{"mdl_name":"Macan","mdl_make":"19","mdl_id":"102"},{"mdl_name":"X1","mdl_make":"13","mdl_id":"103"},{"mdl_name":"Forester","mdl_make":"17","mdl_id":"104"},{"mdl_name":"S3","mdl_make":"2","mdl_id":"105"},{"mdl_name":"C200","mdl_make":"16","mdl_id":"106"},{"mdl_name":"GL350 ","mdl_make":"16","mdl_id":"107"},{"mdl_name":"Landcruiser 200 series","mdl_make":"25","mdl_id":"108"},{"mdl_name":"Huracan","mdl_make":"39","mdl_id":"109"},{"mdl_name":"488 Spider","mdl_make":"21","mdl_id":"110"},{"mdl_name":"X4","mdl_make":"13","mdl_id":"111"},{"mdl_name":"Hilux ","mdl_make":"25","mdl_id":"112"},{"mdl_name":"Golf R","mdl_make":"9","mdl_id":"113"},{"mdl_name":"Golf Variant","mdl_make":"9","mdl_id":"114"},{"mdl_name":"A3","mdl_make":"2","mdl_id":"115"},{"mdl_name":"S400 Non hybrid","mdl_make":"16","mdl_id":"116"},{"mdl_name":"C250","mdl_make":"16","mdl_id":"117"},{"mdl_name":"320i","mdl_make":"13","mdl_id":"118"},{"mdl_name":"S400H (hybrid)","mdl_make":"16","mdl_id":"119"},{"mdl_name":"GLA 250","mdl_make":"16","mdl_id":"120"},{"mdl_name":"S400 Non Hybrid (LWB)","mdl_make":"16","mdl_id":"121"},{"mdl_name":"M3","mdl_make":"13","mdl_id":"122"},{"mdl_name":"LEVANTE","mdl_make":"54","mdl_id":"123"},{"mdl_name":"WRANGLER","mdl_make":"22","mdl_id":"124"},{"mdl_name":"GLE 450 4MATIC ","mdl_make":"16","mdl_id":"125"},{"mdl_name":"TOYOTA KLUGER","mdl_make":"25","mdl_id":"126"}]</p>
+  <div class="wrapper">
+
+    <header id="header">
+      <div class="top-bar py-2">
+        <div class="container-fluid px-xl-5 px-3">
+          <div class="row justify-content-between align-items-center">
+            <div class="col-auto">
+              <div class="media d-inline-flex align-items-center mr-xl-5 mr-3">
+                <img class="mr-2" src="https://importsbykairo.com/assets/images/email-white.svg" alt="email">
+                <div class="media-body">
+                  <p class="mb-0"><a href="/cdn-cgi/l/email-protection#b9d0d7dfd6f9d0d4c9d6cbcdcadbc0d2d8d0cbd697dad6d4"><span class="__cf_email__" 
+                    data-cfemail="244d4a424b644d49544b565057465d4f454d564b0a474b49">[email&#160;protected]</span></a></p>
+                </div>
+              </div>
+              <div class="media d-inline-flex align-items-center">
+                <img class="mr-2" src="https://importsbykairo.com/assets/images/phone-white.svg" alt="phone">
+                <div class="media-body">
+                  <p class="mb-0"><a href="tel:+254743550554">+254 743 550554</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-auto text-right">
+              <div class="social-icons">
+                <a href="https://www.facebook.com/kairoscustomimports" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/facebook-white.svg" alt="facebook" />
+                </a>
+                <a href="https://www.instagram.com/importsbykairo/?hl=en" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/instagram-white.svg" alt="instagram" />
+                </a>
+                <a href="https://twitter.com/importsbykairo?lang=en" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/twitter-white.svg" alt="twitter" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid px-xl-5 px-3">
+        <div class="row">
+          <div class="col">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white">
+              <a class="navbar-brand site-brand" href="index.html">
+                <img src="LOGO.png" alt="Logo" />
+              </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <p class="navbar-text visible-xs-inline-block">Menu</p>
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="rider.html">Motor Bikes</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="local-cars.html">Cars in Kenya</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="request.html">Make a request</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="body-wrapper">
+      <div class="inner-banner">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h1 class="mb-1">114+</h1>
+              <h3>Vehicles In Kenya</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="search-box">
+          <div class="row">
+            <div class="col">
+              <div class="title">
+                <h2>Browse <span>Cars</span></h2>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="search-form">
+                <form id="filtersForm">
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="make">Make</label>
+                      <select class="form-control form-control-lg" id="make">
+                        <option value='0'>Choose</option><option value="2">Audi</option><option value="6">Bentley</option><option value="9">Volkswagen</option><option value="13">BMW</option><option value="14">Jaguar</option><option value="16">Mercedes Benz</option><option value="17">Subaru</option><option value="18">Volvo</option><option value="19">Porsche</option><option value="21">Ferrari</option><option value="22">Jeep</option><option value="23">Hyundai</option><option value="25">Toyota</option><option value="27">Mitsubishi</option><option value="33">Nissan</option><option value="36">Mini</option><option value="37">Landrover</option><option value="38">Suzuki</option><option value="39">Lamborghini</option><option value="40">Chrysler</option><option value="41">Mazda</option><option value="42">Ford</option><option value="46">Lexus</option><option value="49">KIA</option><option value="50">Mini</option><option value="52">Isuzu</option><option value="54">MASERATI</option>                      </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="model">Model</label>
+                      <select class="form-control form-control-lg" id="model">
+                        <option value='0'>Choose</option>                      </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="year">Year</label>
+                      <select class="form-control form-control-lg" id="year">
+                          <option value='0'>Choose</option>
+                        
+                        <!--<option value="2008">2008</option>-->
+                        <!--<option value="2009">2009</option>-->
+                        <!--<option value="2010">2010</option>-->
+                        <!--<option value="2011">2011</option>-->
+                        <!--<option value="2012">2012</option>-->
+                        <!--<option value="2013">2013</option>-->
+                        <!--<option value="2014">2014</option>-->
+                        <!--<option value="2015">2015</option>-->
+                        <!--<option value="2016">2016</option>-->
+                        <!--<option value="2017">2017</option>-->
+                        <!--<option value="2018">2018</option>-->
+                        <!--<option value="2019">2019</option>-->
+                        <!--<option value="2020">2020</option>-->
+                        <!--<option value="2021">2021</option>-->
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-row align-items-center">
+                    <div class="form-group col-md-4">
+                      <div class="row align-items-center justify-content-between mb-3 pt-2">
+                        <div class="col-auto">
+                          <h6 class="mb-0">Budget</h6>
+                        </div>
+                        <div class="col-auto">
+                          <h6 class="mb-0">Ksh <span id="range-price"></span></h6>
+                        </div>
+                      </div>
+                      <input type="range" min="100000" max="100000000" value="40000000" class="slider" id="myRange">
+                    </div>
+                    <!-- <div class="form-group col-md-4 pt-3">
+                      <h6 class="car-type mb-3">Car Type</h6>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="import-cars" name="car_type" value="2" class="custom-control-input">
+                        <label class="custom-control-label" for="import-cars">Import</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="local-cars" name="car_type" value="1" class="custom-control-input">
+                        <label class="custom-control-label" for="local-cars">Local</label>
+                      </div>
+                    </div> -->
+                    <div class="form-group col-md-4 mt-4">
+                      <button class="btn btn-primary action-btn reset-btn">Reset</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="product--list-items">
+        <div class="container">
+          <div class="row my-xl-5 my-4" id="divResultsData">
+            <div class="col-lg-4 col-md-6 mb-4" id="350" onclick="SetCarID(this)">
+    <div class="card product-item">
+      <img class="card-img-top" style="height: 35vh;object-fit: cover;" src="https://importsbykairo.com/assets/images/cars/WhatsAppImage2022-11-16at10.32.12.jpeg" alt="Product">
+      <div class="card-body">
+        <h3 class="card-title">2014 TOYOTA PRADO VX-L SU..</h3>
+        <p class="card-text my-3">Toyota Prado VX-L is the highest trim of..</p>
+        <h5 class="card-title">Ksh 59,999/Month</h5>
+        <a href="rent-now.html" class="btn">Rent Now</a>
+      </div>
+    </div>
+  </div><div class="col-lg-4 col-md-6 mb-4" id="349" onclick="SetCarID(this)">
+    <div class="card product-item">
+      <img class="card-img-top" style="height: 35vh;object-fit: cover;" src="https://importsbykairo.com/assets/images/cars/TOUREGUK2015(221117).1.webp" alt="Product">
+      <div class="card-body">
+        <h3 class="card-title">2015 VOLKSWAGEN TOUAREG "..</h3>
+        <p class="card-text my-3">The 2015 Volkswagen Toureg brings you th..</p>
+        <h5 class="card-title">Ksh 57,500/Month</h5>
+        <a href="rent-now.html" class="btn">Rent Now</a>
+      </div>
+    </div>
+  </div><div class="col-lg-4 col-md-6 mb-4" id="347" onclick="SetCarID(this)">
+    <div class="card product-item">
+      <img class="card-img-top" style="height: 35vh;object-fit: cover;" src="https://importsbykairo.com/assets/images/cars/315515549_715951476557848_3402144252792375929_n.jpg" alt="Product">
+      <div class="card-body">
+        <h3 class="card-title">2014 VOLKSWAGEN GOLF VARI..</h3>
+        <p class="card-text my-3">Underrated yet a performer. The 1.2 L Vo..</p>
+        <h5 class="card-title">Ksh 13,500/Month</h5>
+        <a href="rent-now.html" class="btn">Rent Now</a>
+      </div>
+    </div>
+  </div><div class="col-lg-4 col-md-6 mb-4" id="346" onclick="SetCarID(this)">
+    <div class="card product-item">
+      <img class="card-img-top" style="height: 35vh;object-fit: cover;" src="https://importsbykairo.com/assets/images/cars/WhatsAppImage2022-11-16at17.57.09.jpeg" alt="Product">
+      <div class="card-body">
+        <h3 class="card-title">2018 TOYOTA KLUGER</h3>
+        <p class="card-text my-3">The 3.5L 2GR-FKS petrol V6 engine used i..</p>
+        <h5 class="card-title">Ksh 59,999/Month</h5>
+        <a href="rent-now.html" class="btn">Rent Now</a>
+      </div>
+    </div>
+  </div><div class="col-lg-4 col-md-6 mb-4" id="345" onclick="SetCarID(this)">
+    <div class="card product-item">
+      <img class="card-img-top" style="height: 35vh;object-fit: cover;" src="https://importsbykairo.com/assets/images/cars/2014JAGUARXF2.2DIESEL(221116).1.jpg" alt="Product">
+      <div class="card-body">
+        <h3 class="card-title">2014 JAGUAR XF 2.2 DIESEL</h3>
+        <p class="card-text my-3">The best priced Jaguar XF in town with t..</p>
+        <h5 class="card-title">Ksh 25,999/Month</h5>
+        <a href="rent-now.html" class="btn">Rent Now</a>
+      </div>
+    </div>
+  </div><div class="col-lg-4 col-md-6 mb-4" id="343" onclick="SetCarID(this)">
+    <div class="card product-item">
+      <img class="card-img-top" style="height: 35vh;object-fit: cover;" src="https://importsbykairo.com/assets/images/cars/2015MERCEDESBENZS400L.1.jpeg" alt="Product">
+      <div class="card-body">
+        <h3 class="card-title">2015 MERCEDES BENZ S400L</h3>
+        <p class="card-text my-3">The S-Class is all about unparalleled lu..</p>
+        <h5 class="card-title">Ksh 66,999/Month</h5>
+        <a href="rent-now.html" class="btn">Rent Now</a>
+      </div>
+    </div>
+  </div><div class="col-lg-4 col-md-6 mb-4" id="342" onclick="SetCarID(this)">
+    <div class="card product-item">
+      <img class="card-img-top" style="height: 35vh;object-fit: cover;" src="https://importsbykairo.com/assets/images/cars/WhatsAppImage2022-11-09at11.18.41.jpeg" alt="Product">
+      <div class="card-body">
+        <h3 class="card-title">2015 BMW 523i "LUXURY"</h3>
+        <p class="card-text my-3">Full Tank of Fuel upon purchase. The lux..</p>
+        <h5 class="card-title">Ksh 29,900/Month</h5>
+        <a href="rent-now.html" class="btn">Rent Now</a>
+      </div>
+    </div>
+  </div>
+    
+          <div class="row my-xl-5 my-4" id="divSearchResultsData" style="display: none;">
+          </div>
+          <div class="row my-xl-5 my-4">
+            <div class="col-lg-12 col-md-12" style="display: none;" id="divNoResult">
+              No Cars Available
+            </div>
+
+            
+          </div>
+          <div class="row text-center my-xl-5 my-4" id="divLoadMore" style="display: none;">
+            <div class="col">
+              <button type="button" class="btn btn-primary loader-btn action-btn rounded-pill">Load More</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer id="footer">
+      <div class="container">
+        <div class="row text-center">
+          <div class="col">
+            <div class="footer-logo">
+              <a href="index.html"><img src="LOGO.png" alt="Logo" /></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-menu my-4">
+          <ul class="nav justify-content-center">
+            <li class="nav-item">
+              <a class="nav-link active" href="imports.html">Ready for Import</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="local-cars.html">Cars in Kenya</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="spare-parts.html">Spare Parts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="request.html">Make a request</a>
+            </li>
+          </ul>
+        </div>
+        <div class="follow-us text-center">
+          <h3>Follow Us</h3>
+          <div class="row justify-content-between align-items-center my-4">
+            <div class="col">
+              <div class="media d-inline-flex align-items-center mr-xl-5 mr-3">
+                <img class="mr-2" src="https://importsbykairo.com/assets/images/email-white.svg" alt="email">
+                <div class="media-body">
+                  <p class="mb-0"><a href="/cdn-cgi/l/email-protection#325b5c545d725b5f425d404641504b59535b405d1c515d5f"><span class="__cf_email__" data-cfemail="4c25222a230c25213c233e383f2e35272d253e23622f2321">[email&#160;protected]</span></a></p>
+                </div>
+              </div>
+              <div class="media d-inline-flex align-items-center">
+                <img class="mr-2" src="https://importsbykairo.com/assets/images/phone-white.svg" alt="phone">
+                <div class="media-body">
+                  <p class="mb-0"><a href="tel:+254743550554">+254 743 550554</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="social-icons">
+                <a href="https://www.facebook.com/kairoscustomimports" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/facebook-white.svg" alt="facebook" />
+                </a>
+                <a href="https://www.instagram.com/importsbykairo/?hl=en" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/instagram-white.svg" alt="instagram" />
+                </a>
+                <a href="https://twitter.com/importsbykairo?lang=en" target="_blank" class="d-inline-block mx-2">
+                  <img src="https://importsbykairo.com/assets/images/twitter-white.svg" alt="twitter" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="row text-center">
+            <div class="col">
+              <p class="copy-rights">
+                © 2022 Kip Emerging Car Systems. All Rights Reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-ETV7FME3S2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ETV7FME3S2');
+</script>
+  </div>
+
+  <!-- Scripts -->
+      <!-- Scripts -->
+      <script src="./assets/js/jquery.min.js"></script>
+      <script src="./assets/js/popper.min.js"></script>
+      <script src="./assets/js/bootstrap.min.js"></script>
+      <script src="./assets/slick/slick.js"></script>
+      <script src="./assets/js/index.js"></script>
+
+</body>
+
+</html>
