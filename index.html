@@ -45,6 +45,9 @@
                   <li class="nav-item">
                     <a class="nav-link" href="firebaselogin.html">Login</a>
                   </li>
+                  <li>
+                    <a href="" id="logout" class="nav-link text-danger"> <i class="fa fa-sign-out text-danger" onclick="logout();"></i> Log Out</a>
+                  </li>
                 </ul>
               </div>
             </nav>
@@ -299,9 +302,27 @@
 </div>
 
 <!--ScrollReveal-->
-<script src="https://unpkg.com/scrollreveal"></script>
+  <script src="https://unpkg.com/scrollreveal"></script>
 
     <!--Link To JS-->
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js "></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-auth.js "></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-database.js "></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-analytics.js "></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-performance.js"></script>
+
+    <!-- Confetti js link -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.2.0/dist/confetti.browser.min.js"></script>
+    <script src="/assets/js/firebase.js "></script>
     <script src="main.js"></script>
+    <script>
+      document.getElementById('logout').onclick = (event) => {
+        event.preventDefault();
+        firebase.auth().signOut().then(() => {
+            console.log('Successful log out');
+            window.open('firebaselogin.html');
+        })
+      }
+    </script>
 </body>
 </html>

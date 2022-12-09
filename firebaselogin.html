@@ -1,153 +1,94 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-<title>KIP EMERGING CAR RENTAL SYSTEM.</title>
-<link rel="stylesheet" href="cssFile.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+
+    <link rel="shortcut icon" href="images/lime.png" />
+    <link rel="stylesheet" href="/assets/css/login.css" />
+
+    <style>
+        #status {
+            border-bottom: 2px solid limegreen;
+        }
+    </style>
+    <title>Login to LimeLight</title>
 </head>
 
 <body>
-  
-<div id="login-box">
-  <div class="left">
-    <h1 id='status'>login</h1>
-    <div class="form-container">
-      <form action="https://getform.io/f/948e1e3c-7e6f-4231-9ded-0eb77d46061b" method="post">
-      <div class="input-box">
-          <span>Username</span>
-          <input type="search" oninput="this.className" name="username"placeholder="UserName">
-      </div>
-      <p>             
-          <div class="input-box">
-              <span>Password</span>
-              <input type="search" oninput="this.className" name="password"placeholder="Password">
-          </div>
-      </p>
-      <input type="submit" name="" id="" class="btn">
-      </form>
-  </div>
-  </div>
-  
-  <div class="right">
-    <span class="loginwith">Sign in with<br />social network</span>
-    
-    <button class="social-signin facebook">Log in with facebook</button>
-    <button class="social-signin twitter">Log in with Twitter</button>
-    <button class="social-signin google">Log in with Google+</button>
-  </div>
-  <div class="or">OR</div>
-</div>
+    <div class="container-fluid row">
+        <div class="image col">
+            <img src="images/limelight-logo-black.png" alt="" class="offset-4" />
+        </div>
+    </div>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form>
+                <p id="status2" class="alert alert-warning"></p>
+                <h1>Create Account</h1>
+                <span>to join the Limelight</span>
+                <input type="text" placeholder="Name" id="signup-name" />
+                <span id="errorText" class="text-danger"></span>
+                <input type="email" placeholder="Email" id="signup-email" />
+                <span id="mailError" class="text-danger"></span>
+                <input type="password" placeholder="Password" id="signup-passwd" />
+                <span id="passError" class="text-danger"></span>
+                <button class="signup-btn" onclick="signUp(); return false">Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form>
+                <p id="status" class="alert alert-warning"></p>
+                <h1>Sign in</h1>
+                <span>to keep enjoying the limelight</span>
+                <input type="text" placeholder="Email address" id="signin-username" />
+                <span id="errorEmail" class="text-danger"></span>
+                <input type="password" placeholder="Password" id="signin-passwd" />
+                <span id="errorPass" class="text-danger"></span>
+                <a href="#">Forgot your password?</a>
+                <button class="signin-btn" onclick="signIn(); return false">Sign In</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>
+                        To stay connected with us please login with your personal info
+                    </p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start your journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="spinner-grow text-success mt-4" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <!-- Todo: Show password without changing form input style -->
+    <script src="https://unpkg.com/bootstrap-show-password@1.2.1/dist/bootstrap-show-password.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-performance.js"></script>
+
+    <script src="/assets/js/firebase.js"></script>
+    <script src="/assets/js/login.js"></script>
+
 </body>
-
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-  import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    //yout config code
-  apiKey: "AIzaSyAlmLzi-qzcekCDpJlziQq9k6jOoEEYk10",
-  authDomain: "trial-d884c.firebaseapp.com",
-  projectId: "trial-d884c",
-  storageBucket: "trial-d884c.appspot.com",
-  messagingSenderId: "570750882932",
-  appId: "1:570750882932:web:a24cd23ae489724150ed21",
-  measurementId: "G-PH78BPG9ML"
-
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const database = getDatabase(app);
-  const auth = getAuth();
-
-sighUp.addEventListener('click',(e) => {
-
-  var email = document.getElementById('email').value;
-  var password = document.getElementById('password').value;
-  var username = document.getElementById('username').value;
-
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-     // Signed in 
-      const user = userCredential.user;
-
-      set(ref(database, 'users/' + user.uid),{
-          username: username,
-          email: email
-      })
-
-      alert('user created!');
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-
-      alert(errorMessage);
-    // ..
-    });
-
-});
-
- login.addEventListener('click',(e)=>{
-   var email = document.getElementById('email').value;
-   var password = document.getElementById('password').value;
-
-      signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-
-        const dt = new Date();
-         update(ref(database, 'users/' + user.uid),{
-          last_login: dt,
-        })
-
-         alert('User loged in!');
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-
-        alert(errorMessage);
-  });
-
- });
-
-const user = auth.currentUser;
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-    const uid = user.uid;
-    //bla bla bla
-    // ...
-  } else {
-    // User is signed out
-    // ...
-    //bla bla bla
-  }
-});
-
-logout.addEventListener('click',(e)=>{
-
-   signOut(auth).then(() => {
-     // Sign-out successful.
-     alert('user loged out');
-   }).catch((error) => {
-     // An error happened.
-     const errorCode = error.code;
-     const errorMessage = error.message;
-
-        alert(errorMessage);
-   });
-
-});
-
-</script>
 
 </html>
